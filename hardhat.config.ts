@@ -5,6 +5,7 @@ import { config as dotenvConfig } from "dotenv" // ✅ 重命名为 dotenvConfig
 dotenvConfig() // 加载 .env 文件
 
 const config: HardhatUserConfig = {
+    defaultNetwork: "hardhat",
     solidity: {
         version: "0.8.8",
         settings: {
@@ -23,6 +24,9 @@ const config: HardhatUserConfig = {
         },
         localhost: {
             url: "http://127.0.0.1:8545",
+            accounts: process.env.REMOTE_TEST_PRIVATE_KEY
+                ? [process.env.REMOTE_TEST_PRIVATE_KEY]
+                : [],
         },
     },
     etherscan: {
